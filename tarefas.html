@@ -13,7 +13,7 @@
 <body>
     <header
         class="flex justify-between items-center py-4 px-15 bg-gradient-to-r from-purple-900 via-purple-600 to-purple-900">
-        <input type="text" placeholder="Pesquisar" class="w-100 h-10 pl-4 rounded bg-white" />
+        <input type="text" placeholder="Pesquisar" class="w-100 h-10 pl-4 rounded bg-white" onkeyup="carregarTarefas(this.value)"/>
         <button
             onclick="abrirFormCriar()"
             class="leading-10 bg-purple-800 rounded px-4 font-bold text-white duration-200 cursor-pointer hover:bg-purple-400 hover:text-black">Nova
@@ -23,7 +23,8 @@
     <main class="p-15 bg-slate-200">
         <h1 class="text-3xl font-bold mb-6">Tarefas</h1>
         <div id="tarefas" class="grid grid-cols-3 gap-4"></div>
-        <div id="overlay" onclick="fecharFormCriar()" class="w-full h-screen bg-black/70 fixed top-0 left-0 opacity-0 invisible duration-200"></div>
+        <div id="overlay" onclick="fecharFormCriar(), fecharFormEditar()" class="w-full h-screen bg-black/70 fixed top-0 left-0 opacity-0 invisible duration-200"></div>
+
         <div id="form-criar"
             class="w-100 p-4 rounded-lg bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 invisible duration-200 delay-200">
             <div class="flex justify-end">
@@ -37,6 +38,28 @@
                 <label for="descricao" class="uppercase text-xs font-bold mb-2 block">Descrição</label>
                 <textarea
                     id="descricao"
+                    class="pl-3 h-30 border-2 border-slate-400 focus:border-purple-600 duration-150 rounded outline-none mb-4"
+                    required></textarea>
+                <button type="submit"
+                    class="w-full h-10 rounded bg-purple-400 hover:bg-purple-600 duration-200 hover:text-white font-bold">Criar</button>
+            </form>
+        </div>
+
+        <!-- EM MANUTENÇÃO -->
+        <div id="form-editar"
+            class="w-100 p-4 rounded-lg bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 invisible duration-200 delay-200">
+            <div class="flex justify-end">
+                <box-icon name='x' class="cursor-pointer" onclick="fecharFormEditar()"></box-icon>
+            </div>
+            <form onsubmit="editarTarefa()" class="flex flex-col">
+                <input type="hidden" id="idEdicao">
+                <label for="tituloEdicao" class="uppercase text-xs font-bold mb-2 block">Titulo</label>
+                <input id="tituloEdicao" type="text" placeholder="Titulo da tarefa"
+                    class="pl-3 h-10 border-2 border-slate-400 focus:border-purple-600 duration-150 rounded outline-none mb-4"
+                    required />
+                <label for="descricao" class="uppercase text-xs font-bold mb-2 block">Descrição</label>
+                <textarea
+                    id="descricaoEdicao"
                     class="pl-3 h-30 border-2 border-slate-400 focus:border-purple-600 duration-150 rounded outline-none mb-4"
                     required></textarea>
                 <button type="submit"
